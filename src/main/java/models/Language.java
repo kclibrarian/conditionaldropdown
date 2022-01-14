@@ -3,41 +3,47 @@ package models;
 
 public class Language {
 //    Create variables
-    private int id;
-    private static int nextId = 1;
-
+    private String id;
     private String name;
-//    private String description;
-//    private Language[] languages;
-
-// Constructor
-    public Language(String name) {
-        this.name = name;
-        this.id = nextId;
-        nextId++;
-    }
+    private String designation;
 
     public Language() {
 
     }
-    public int getId() {
+
+    public Language(String id, String name, String designation) {
+        this.name = name;
+        this.id = id;
+        this.designation = designation;
+    }
+
+
+
+
+    //Getters and Setters
+    public String getId() {
         return id;
     }
 
-//Getters and Setters
+
     public String getName() {
         return name;
     }
-//    public String getDescription() { return description; }
 
-//    public void setDescription(String code) {
-//        this.description = description;
-//    }
     public void setName(String name) {
         this.name = name;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
 
+    public String getDesignation() {
+        return designation;
+    }
 
+    public void setDesignation(String designation) {
+        this.designation = designation;
+    }
 }
 

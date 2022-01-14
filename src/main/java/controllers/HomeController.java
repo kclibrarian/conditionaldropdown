@@ -12,35 +12,49 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("language")
-public class HomeController {
+public class HomeController<LanguageForm> {
 
     @Autowired
     private LanguageRepository languageRepository;
-    private static List<Language> languages = new ArrayList<>();
+    private String languages;
+    private static List<String> convertedLanguages = new ArrayList<>();
+    static {
+        convertedLanguages.add("English");
+        convertedLanguages.add("German");
+    }
 
-
-    @GetMapping("")
+    @GetMapping("/languages")
     public Set<String> index(Model model) {
-        Set<String> languages = Arrays.stream(Locale.getISOLanguages())
-                .map(Locale::new)
-                .map(Locale::getDisplayLanguage)
-                .collect(Collectors.toCollection(TreeSet::new));
-//        model.addAttribute("language", languageRepository.findAll());
+        List<String> convertedLanguages = Arrays.asList(languages.split(",", -1));
 
-        return languages;
+
+        return (Set<String>) convertedLanguages;
     }
 
-    @GetMapping("add")
-    public String displayLanguageEventForm(Model model) {
-        model.addAttribute("languages", languages);
-        return "add";
+    @PostMapping("/languages")
+    private String submitLanguage(@ModelAttribute("languageForm") LanguageForm languageForm, Model model) {
+        model.addAttribute("data", languageForm.toString());
+
+        return "success";
     }
 
-    @PostMapping("add")
-    public String processAddLanguageForm(@RequestParam String languageName) {
-        languages.add(new Language(languageName));
-        return "redirect:";
-    }
+//    @GetMapping("add")
+//    public String displayLanguageEventForm(Model model) {
+//        model.addAttribute("languages", languages);
+//        return "add";
+//    }
+//
+//    @PostMapping("/addlanguages")
+//    public String addLanguage(@RequestParam String language, Model model) {
+//
+//        return "addlanguages";
+//    }
+//
+//    @PostMapping("add")
+//    public String processAddLanguageForm(@RequestParam String languageName) {
+//        languages.add(new Language(languageName));
+//        return "redirect:";
+//    }
 //    @PostMapping("add")
 //    public String addLanguageForm(@RequestParam String languageName, @RequestParam String languageCode) {
 //        languages.add(new Language(languageName));
