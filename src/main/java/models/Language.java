@@ -7,13 +7,12 @@ public class Language {
     private static int nextId = 1;
 
     private String name;
-    private String description;
-    private Language[] languages;
+//    private String description;
+//    private Language[] languages;
 
 // Constructor
     public Language(String name) {
         this.name = name;
-        this.description = description;
         this.id = nextId;
         nextId++;
     }
@@ -29,11 +28,11 @@ public class Language {
     public String getName() {
         return name;
     }
-    public String getDescription() { return description; }
+//    public String getDescription() { return description; }
 
-    public void setDescription(String code) {
-        this.description = description;
-    }
+//    public void setDescription(String code) {
+//        this.description = description;
+//    }
     public void setName(String name) {
         this.name = name;
     }

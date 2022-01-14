@@ -7,8 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("language")
@@ -18,22 +18,21 @@ public class HomeController {
     private LanguageRepository languageRepository;
     private static List<Language> languages = new ArrayList<>();
 
-    @GetMapping("")
-    @ModelAttribute("languages") //vs model.addattribute?
-    public List<Language> index(Model model) {
-        List<Language> list = new ArrayList<Language>();
-        list.add(new Language("English"));
-        list.add(new Language("Spanish"));
-        list.add(new Language("Arabic"));
 
-        return list;
+    @GetMapping("")
+    public Set<String> index(Model model) {
+        Set<String> languages = Arrays.stream(Locale.getISOLanguages())
+                .map(Locale::new)
+                .map(Locale::getDisplayLanguage)
+                .collect(Collectors.toCollection(TreeSet::new));
+//        model.addAttribute("language", languageRepository.findAll());
+
+        return languages;
     }
 
     @GetMapping("add")
     public String displayLanguageEventForm(Model model) {
-        model.addAttribute("title", "Language");
-
-        model.addAttribute("language", new Language());
+        model.addAttribute("languages", languages);
         return "add";
     }
 
@@ -42,10 +41,10 @@ public class HomeController {
         languages.add(new Language(languageName));
         return "redirect:";
     }
-    @PostMapping("add")
-    public String addLanguageForm(@RequestParam String languageName, @RequestParam String languageCode) {
-        languages.add(new Language(languageName));
-        return "redirect:";
-    }
+//    @PostMapping("add")
+//    public String addLanguageForm(@RequestParam String languageName, @RequestParam String languageCode) {
+//        languages.add(new Language(languageName));
+//        return "redirect:";
+//    }
 }
 
