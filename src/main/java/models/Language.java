@@ -1,23 +1,40 @@
 package models;
 
 
+import org.springframework.ui.Model;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
+
 public class Language {
-//    Create variables
+    private List<String> list;
+    //    Create variables
     private String id;
     private String name;
-    private String designation;
+    private String languages;
+    private String language;
+    Set<String> languageList;
 
     public Language() {
 
     }
 
-    public Language(String id, String name, String designation) {
+    public Language(String id, String name, String language, Set<String>languageList, List<String>list) {
         this.name = name;
         this.id = id;
-        this.designation = designation;
+        this.language = language;
+        this.languageList = languageList;
+        this.list = list;
+
     }
 
-
+//    public Set<String> languageList () {
+//        list = Arrays.asList(languageList.split(",", -1));
+//
+//        return languageList;
+//    }
 
 
     //Getters and Setters
@@ -38,12 +55,29 @@ public class Language {
         this.id = id;
     }
 
-    public String getDesignation() {
-        return designation;
+
+    public String getLanguages() {
+        return languages;
     }
 
-    public void setDesignation(String designation) {
-        this.designation = designation;
+    public void setLanguages(String languages) {
+        this.languages = languages;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public Set<String> getLanguageList() {
+        return languageList;
+    }
+
+    public void setLanguageList(Set<String> languageList) {
+        this.languageList = languageList;
     }
 }
 

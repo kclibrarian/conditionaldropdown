@@ -1,5 +1,7 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <title>Dynamicaly Dependent Drop Down Lists</title>
@@ -7,31 +9,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery-mockjax/1.5.1/jquery.mockjax.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <style>
     </style>
 </head>
 <body>
-<form method="post" style="max-width:600px;">
-<div class="form-group">
-    System.out.println(languages);
+<th:text="${languageList}">
 
-    Language to Translate:
-    <label th:for="language">Language
-        <input type="text" th:field="=${language.name}" class="form-control"/>
-            <option th:each="language: ${languages}"
-                    th:text="${language.name}"
-                    th:value="${language.code}">
-            </option>
-    // Connects to add.html?
-    <td th:text="${language.name}"></td>
-    <p class="error" th:errors="${language.name}"></p>
-    </label>
-    </div>
-    <div class="form-group">
-        <input type="submit" class="btn btn-primary" value="Language"/>
-    </div></form>
+<form th:action="@{/language}" th:object="${language}" method="POST">
+<table>
+    <tr>
+        <td>Language List</td>
+        <td><select name="language">
+
+            <option th:each="language: ${languagelist}" th:text="${language}">-->
+        </select></td>
+    </tr>
+</table>
+    <input type="submit" value="Save">
+
+</form>
 </body>
-</html>
+</html>;
+
+<!--        <form th:action="@{/>language}" th:object=${languageForm}" method="POST">-->
+<!--            <table>-->
+<!--                <tr>-->
+<!--                    <td>Language</td>-->
+<!--                    <td><input type="text" name=""</td>-->
+<!--                </tr>-->
+<!--            </table>-->
+
+
+<!--        <input type="text" th:field="=${language.name}" class="form-control"/>-->
+<!--            <option th:each="language: ${languages}"-->
+<!--                    th:text="${language.name}"-->
+<!--                    th:value="${language.code}">-->
+<!--            </option>-->
+<!--    // Connects to add.html?-->
+<!--    <td th:text="${language.name}"></td>-->
+<!--    <p class="error" th:errors="${language.name}"></p>-->
+<!--    </label>-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--        <input type="submit" class="btn btn-primary" value="Language"/>-->
+<!--    </div></form>-->
+
+
 

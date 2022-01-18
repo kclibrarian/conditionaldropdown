@@ -12,29 +12,28 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("language")
-public class HomeController<LanguageForm> {
+public class HomeController {
 
     @Autowired
     private LanguageRepository languageRepository;
     private String languages;
-    private static List<String> convertedLanguages = new ArrayList<>();
+
+    private static List<String> languageList;
     static {
-        convertedLanguages.add("English");
-        convertedLanguages.add("German");
+        languageList = new ArrayList<>();
+        languageList.add("English");
+        languageList.add("German");
     }
 
-    @GetMapping("/languages")
-    public Set<String> index(Model model) {
-        List<String> convertedLanguages = Arrays.asList(languages.split(",", -1));
-
-
-        return (Set<String>) convertedLanguages;
+    @GetMapping("")
+    private String getLanguageForm(Model model, List<String> languageList) {
+        model.addAttribute("languageList", languageList);
+        return "languageform";
     }
 
-    @PostMapping("/languages")
-    private String submitLanguage(@ModelAttribute("languageForm") LanguageForm languageForm, Model model) {
-        model.addAttribute("data", languageForm.toString());
-
+    @PostMapping("")
+    private String submitLanguage(@ModelAttribute("language") Language language, Model model) {
+        model.addAttribute("data", language.toString());
         return "success";
     }
 
